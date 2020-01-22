@@ -1,0 +1,17 @@
+// Desafio CPF
+
+CPF dos aprovados:
+ - 600.567.890-12
+ - 765-998.345-23 ...
+
+ //Desafio telefone.js
+ 
+ Lista telefônica:
+  - (11) 98756-1212
+  -98765-4321
+
+
+  //DesafioEmail.js
+  Emails dos convidados:
+  -fulano@coder.com.br
+  -teste@teste.com
