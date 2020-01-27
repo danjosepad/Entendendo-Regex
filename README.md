@@ -10,7 +10,7 @@ O conteúdo apresentado a seguir será realizado utilizando JavaScript, mas pode
     - [Ponto](#Ponto)
     - [Espaços em Branco](#Espaços-em-Branco)
     - [Pipe](#Pipe)
-    - [Dotall(Problema no JavaScript e Solução](#Dotall)
+    - [Dotall(Problema no JavaScript e Solução)](#Dotall)
     
 2.  [Conjuntos](#Conjuntos)
     - [Intervalos](#Intervalos)
