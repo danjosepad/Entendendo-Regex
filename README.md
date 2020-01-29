@@ -18,6 +18,13 @@ O conteúdo apresentado a seguir será realizado utilizando JavaScript, mas pode
     - [Shorthands](#Shorthands)
     - [Negações](#Negações)
     - [Conjuntos com Unicode](#Conjuntos-com-Unicode)
+
+3.  [Quantificadores](#Quantificadores)
+    - [Zero ou Um (?)](#Zero-ou-Um-(?))
+    - [Um ou Mais (+)](#Um-ou-Mais-(+))
+    - [Zero ou Mais (*)](#Zero-ou-Mais-(*))
+    - [Chaves](#Chaves)
+    - [Quantificadores Gulosos e Não Gulosos](#Quantificadores-Gulosos-e-Não-Gulosos)
     
 ## Caracteres Simples
 
@@ -263,3 +270,133 @@ console.log(text.match(/[À-ü]/g));
 ]
 */
 ```
+## Quantificadores 
+
+Os quantificadores indicam quantas vezes o caracter irá aparecer em uma correspondência
+
+### Zero ou Um (?)
+```javascript
+const text1 = "De longe eu avistei o fogo e uma pessoa gritando: FOGOOOO";
+const text2 = "There is a big fog in NYC";
+
+// ? - > Zero ou um (opcional)
+
+const regex = /fogo?/gi;
+
+// O ? quer dizer que a letra anterior (o), pode ou nao aparecer
+
+console.log(text1.match(regex)); // [ 'fogo', 'FOGO' ]
+console.log(text2.match(regex)); // [ 'fog' ]
+```
+### Um ou Mais (+)
+
+```javascript
+const text1 = "De longe eu avistei o fogo e uma pessoa gritando: FOGOOOO";
+const text2 = "There is a big fog in NYC";
+
+// + - > Um ou mais
+
+const regex = /fogo+/gi;
+
+// O + quer dizer que a letra anterior (o), pode aparecer um ou mais vezes
+
+console.log(text1.match(regex)); // [ 'fogo', 'FOGOOOO' ]
+```
+Em outro exemplo, junto a conjuntos, pode-se trazer todos os conjuntos de uma vez
+
+```javascript
+
+const text3 = "The numbers: 0123456789.";
+console.log(text3.match(/[0-9]/g));
+/*
+[
+  '0', '1', '2', '3',
+  '4', '5', '6', '7',
+  '8', '9'
+]
+*/
+
+// Pega o conjunto de numeros, trazendo todos de uma vez
+console.log(text3.match(/[0-9]+/g)); // [ '0123456789' ]
+```
+
+### Zero ou Mais (*)
+
+```javascript
+
+const text1 = "De longe eu avistei o fogo e uma pessoa gritando: FOGOOOO";
+const text2 = "There is a big fog in NYC";
+
+// * - > Zero ou mais
+const regex = /fogo*/gi;
+
+// O * quer dizer que a letra anterior (o), pode não aparecer ou aparecer várias vezes
+
+console.log(text1.match(regex)); // [ 'fogo', 'FOGOOOO' ]
+console.log(text2.match(regex)); // [ 'fog' ]
+```
+
+### Chaves
+
+Através das chaves, é possível definir um alcance para o quantificador
+
+```javascript
+const text = "John won 120 million playing 6 9 21 23 45 46 on lotteries";
+
+ Para definir um quantificador usa {}
+
+// De 1 a 2
+console.log(text.match(/\d{1,2}/g));
+/*
+[
+  '12', '0',  '6',
+  '9',  '21', '23',
+  '45', '46'
+]
+*/
+
+// Número com apenas 2
+console.log(text.match(/[0-9]{2}/g)); // [ '12', '21', '23', '45', '46' ]
+
+// 1 ou mais
+console.log(text.match(/\d{1,}/g));
+/*
+[
+  '120', '6',
+  '9',   '21',
+  '23',  '45',
+  '46'
+]
+*/
+
+// Palavras com até 7 caracteres
+console.log(text.match(/\w{7}/g)); // [ 'million', 'playing', 'lotteri' ]
+
+// Palavras com 7 caracteres ou mais
+console.log(text.match(/[\w]{7,}/g)); // [ 'million', 'playing', 'lotteries' ]
+```
+
+### Quantificadores Gulosos e Não Gulosos
+
+Os quantificadores por padrão irão extender o resultado ao máximo possível, veja o exemplo a seguir
+
+```javascript
+const text = "<div>Content 01</div><div>Content 02></div>";
+
+console.log(text.match(/<div>.+<\/div>/g)); // [ '<div>Content 01</div><div>Content 02></div>' ]
+console.log(text.match(/<div>.*<\/div>/g)); // [ '<div>Content 01</div><div>Content 02></div>' ]
+console.log(text.match(/<div>.{0,100}<\/div>/g)); // [ '<div>Content 01</div><div>Content 02></div>' ]
+```
+
+Perceba que, ao buscar com a div, ele corresponderá a toda a extensão, mesmo que as tags fechem
+no meio do texto, para isso.
+
+Veja o exemplo tornando um quantificador NÃO guloso
+
+```javascript
+console.log(text.match(/<div>.+?<\/div>/g)); // [ '<div>Content 01</div>', '<div>Content 02></div>' ]
+console.log(text.match(/<div>.*?<\/div>/g)); // [ '<div>Content 01</div>', '<div>Content 02></div>' ]
+console.log(text.match(/<div>.{0,100}?<\/div>/g)); // [ '<div>Content 01</div>', '<div>Content 02></div>' ]
+```
+
+Dessa forma, é possível delimitar o  alcance, buscando o resultado desejado.
