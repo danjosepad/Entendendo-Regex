@@ -20,9 +20,9 @@ O conteúdo apresentado a seguir será realizado utilizando JavaScript, mas pode
     - [Conjuntos com Unicode](#Conjuntos-com-Unicode)
 
 3.  [Quantificadores](#Quantificadores)
-    - [Zero ou Um (?)](#Zero-ou-Um-(?))
-    - [Um ou Mais (+)](#Um-ou-Mais-(+))
-    - [Zero ou Mais (*)](#Zero-ou-Mais-(*))
+    - [Zero ou Um (?)](#Zero-ou-Um)
+    - [Um ou Mais (+)](#Um-ou-Mais)
+    - [Zero ou Mais (*)](#Zero-ou-Mais)
     - [Chaves](#Chaves)
     - [Quantificadores Gulosos e Não Gulosos](#Quantificadores-Gulosos-e-Não-Gulosos)
     
@@ -274,7 +274,7 @@ console.log(text.match(/[À-ü]/g));
 
 Os quantificadores indicam quantas vezes o caracter irá aparecer em uma correspondência
 
-### Zero ou Um (?)
+### Zero ou Um
 ```javascript
 const text1 = "De longe eu avistei o fogo e uma pessoa gritando: FOGOOOO";
 const text2 = "There is a big fog in NYC";
@@ -288,7 +288,7 @@ const regex = /fogo?/gi;
 console.log(text1.match(regex)); // [ 'fogo', 'FOGO' ]
 console.log(text2.match(regex)); // [ 'fog' ]
 ```
-### Um ou Mais (+)
+### Um ou Mais
 
 ```javascript
 const text1 = "De longe eu avistei o fogo e uma pessoa gritando: FOGOOOO";
@@ -320,7 +320,7 @@ console.log(text3.match(/[0-9]/g));
 console.log(text3.match(/[0-9]+/g)); // [ '0123456789' ]
 ```
 
-### Zero ou Mais (*)
+### Zero ou Mais
 
 ```javascript
 
