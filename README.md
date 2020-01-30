@@ -26,6 +26,11 @@ O conteúdo apresentado a seguir será realizado utilizando JavaScript, mas pode
     - [Chaves](#Chaves)
     - [Quantificadores Gulosos e Não Gulosos](#Quantificadores-Gulosos-e-Não-Gulosos)
     
+4.  [Grupos](#Grupos)
+    - [Retrovisores](#Retrovisores)
+    - [Grupos Aninhados](#Grupos-Aninhados)
+    - [Cuidados](#Cuidados)
+    
 ## Caracteres Simples
 
 ```javascript
@@ -400,3 +405,76 @@ console.log(text.match(/<div>.{0,100}?<\/div>/g)); // [ '<div>Content 01</div>',
 ```
 
 Dessa forma, é possível delimitar o  alcance, buscando o resultado desejado.
+
+## Grupos
+
+É possível agrupar os elementos e tratá-los como um conjunto, negando ou com outras funções
+
+```javascript
+const text1 = "This guy is so funny... hahaha";
+
+console.log(text1.match(/(ha)+/g)); // [ 'hahaha' ]
+
+Perceba que o ha foi tratado como um conjunto de palavas e somados de forma a retornar o resultado desejado.
+
+const text2 = "http://www.site.info www.school.ninja google.com";
+
+console.log(text2.match(/(http:\/\/)?(www\.)?\w+\.\w{2,}(\.\w{2})?/g));
+// [ 'http://www.site.info', 'www.school.ninja', 'google.com' ]
+```
+
+### Retrovisores
+
+const text1 = "<b>Spotlights</b><strong>Forte</strong><div>Content</div>";
+
+//Retrovisores
+
+Pode-se repetir a captura(grupo) referenciando com o numero do grupo
+
+Veja o exemplo a seguir, repetindo o primeiro grupo
+```javascript
+console.log(text1.match(/<(\w+)>.*\/\1>/g));
+// [ '<b>Spotlights</b>', '<strong>Forte</strong>', '<div>Content</div>' ]
+```
+```javascript
+const text2 = "Slowly is a slow mind";
+
+console.log(text2.match(/(slow)(ly).*\1/gi)); // [ 'Slowly is a slow' ]
+console.log(text2.match(/(?:slow)(ly).*\1/gi)); 
+
+ ?: não captura valor
+```
+
+### Grupos Aninhados
+
+É possível usar grupos aninhados entre si para pegar partes diferentes da correspondência.
+
+Como exemplo, vamos buscar o hiper, super e mini de um "market"
+
+```javascript
+
+console.log(text.match(/(super|hiper|mini)?market/g));
+// [ 'supermarket', 'hipermarket', 'minimarket', 'market' ]
+
+console.log(text.match(/((hi|su)per|mini)?market/g)); // Uso de grupos aninhados
+// [ 'supermarket', 'hipermarket', 'minimarket', 'market' ]
+
+```
+
+### Cuidados 
+
+ Dentro de um conjunto os grupos não existem
+```javascript
+const text = "Johnathan (son of John Silva) is a doctor on ABC";
+
+console.log(text.match(/[(abc)]/g)); 
+//[ 'a', 'a', '(', 'a', ')', 'a', 'c' ]
+```
+
+Mas o contrário pode acontecer
+
+```javascript
+
+console.log(text.match(/([abc])/g)); // [ 'a', 'a', 'a', 'a', 'c' ]
+```
+Evite grupos desnecessários, para atender exatamente o que é solicitado
