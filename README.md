@@ -425,17 +425,18 @@ console.log(text2.match(/(http:\/\/)?(www\.)?\w+\.\w{2,}(\.\w{2})?/g));
 
 ### Retrovisores
 
-const text1 = "<b>Spotlights</b><strong>Forte</strong><div>Content</div>";
-
-//Retrovisores
 
 Pode-se repetir a captura(grupo) referenciando com o numero do grupo
 
 Veja o exemplo a seguir, repetindo o primeiro grupo
+
 ```javascript
+const text1 = "<b>Spotlights</b><strong>Forte</strong><div>Content</div>";
+
 console.log(text1.match(/<(\w+)>.*\/\1>/g));
 // [ '<b>Spotlights</b>', '<strong>Forte</strong>', '<div>Content</div>' ]
 ```
+
 ```javascript
 const text2 = "Slowly is a slow mind";
 
@@ -464,6 +465,7 @@ console.log(text.match(/((hi|su)per|mini)?market/g)); // Uso de grupos aninhados
 ### Cuidados 
 
  Dentro de um conjunto os grupos não existem
+ 
 ```javascript
 const text = "Johnathan (son of John Silva) is a doctor on ABC";
 
