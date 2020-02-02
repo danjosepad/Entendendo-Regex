@@ -607,4 +607,4 @@ Encerramos aqui, ao menos por enquanto, o conteúdo sobre Expressões Regulares,
 
 Caso queira uma visão ainda mais ampla do conteúdo apresentado aqui, volto a dizer que o conteúdo apresentado no curso [Fundamentos de Expressões Regulares (Regex)](https://www.udemy.com/course/curso-regex/) irá com certeza melhorar o seu entendimento e ajudar você a melhorar ainda mais suas aplicações.
 
-Espero que o conteúdo aqui ajude a todos, e até a próxima!
+Espero que o conteúdo apresentado aqui ajude a todos, e até a próxima!
