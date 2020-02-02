@@ -1,9 +1,9 @@
-# Entendendo Regex
+# :clipboard: Entendendo Regex
 Principais conceitos de regex, conhecimento e exercicios adquiridos através do curso Fundamentos de Expressões Regulares (Regex)  na Udemy: https://www.udemy.com/course/curso-regex/
 
 O conteúdo apresentado a seguir será realizado utilizando JavaScript, mas pode ser utilizado em várias outras linguagens.
 
-# Sumário
+# :scroll: Sumário
 
 1.  [Caracteres Simples](#Caracteres-Simples)
     - [Meta Caracteres](#Meta-Caracteres)
@@ -31,6 +31,11 @@ O conteúdo apresentado a seguir será realizado utilizando JavaScript, mas pode
     - [Grupos Aninhados](#Grupos-Aninhados)
     - [Cuidados](#Cuidados)
     
+5.  [Bordas](#Bordas)
+    - [Multiline](#Multiline)
+    - [Exemplos de Bordas com Caracteres](#Exemplos-de-Bordas-com-Caracteres)
+    
+6.  [Conclusão](#Conclusão)
 ## Caracteres Simples
 
 ```javascript
@@ -480,3 +485,126 @@ Mas o contrário pode acontecer
 console.log(text.match(/([abc])/g)); // [ 'a', 'a', 'a', 'a', 'c' ]
 ```
 Evite grupos desnecessários, para atender exatamente o que é solicitado
+
+## Bordas
+
+As bordas definem onde as palavras serão encontadas nas correspondências, ou nos limites de palavras.
+
+```javascript
+const text = "Elevis was a legend in combat\n, but now he can't battle anymore";
+
+console.log(text.match(/e/gi)); // [ 'e', 'e', 'e', 'e', 'e' ]
+
+//Inicio da linha/string
+console.log(text.match(/^e/gi)); // [ 'E' ] (Elevis)
+
+//Fim da linha/string
+console.log(text.match(/e$/gi)); // [ 'e' ] (anymore)
+
+```
+
+### Multiline
+
+```javascript
+const text = `
+First phrase starts with F
+Second phrase starts with S
+Third phrase starts with T
+`;
+
+//Visualiza as quebas de linhas
+console.log(text.match(/\n/g)); // [ '\n', '\n', '\n', '\n' ]
+
+console.log(text.match(/^(\w).+\1$/gi)); // null
+```
+Com a tag multiline, se torna possível capturar as bordas entre as correspondências, veja o exemplo a seguir.
+
+```javascript
+console.log(text.match(/^(\w).+\1$/gim));
+/*
+[
+  'First phrase starts with F',
+  'Second phrase starts with S',
+  'Third phrase starts with T'
+]
+*/
+```
+
+### Exemplos de Bordas com Caracteres
+
+```javascript
+const text1 =
+  "monday tuesday wednesday thursday friday saturday sunday daysgone day";
+
+// Começo da string
+console.log(text1.match(/\bday\w*/gi)); // [ 'daysgone', 'day' ]
+
+//Final da string
+console.log(text1.match(/\w+day/gi));
+/*
+[
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday'
+]
+*/
+
+//Todas as ocorrências que tenham "day"
+console.log(text1.match(/\w*day\w*/gi));
+/*
+[
+  'monday',    'tuesday',
+  'wednesday', 'thursday',
+  'friday',    'saturday',
+  'sunday',    'daysgone',
+  'day'
+]
+*/
+// borda é não \w, que é [^A-Za-z0-9_]
+//Temos problemas com acentos, pois eles também são caracterizados como bordas
+
+const text2 = "dia diatônico diafragma, média wikipédia bom-dia melodia radial";
+
+console.log(text2.match(/\bdia\b/gi)); // [ 'dia', 'dia', 'dia', 'dia' ]
+/*
+O regex selecionou
+dia diatônico diafragma, média wikipédia bom-dia melodia radial
+ESSE                     ESSE     ESSE    ESSE
+pois estao seguidos de "borda"
+*/
+
+//Como solucionar
+console.log(text2.match(/(\S*)?dia(\S*)?/gi)); //a virgula também entrou
+/*
+[
+  'dia',
+  'diatônico',
+  'diafragma,',
+  'média',
+  'wikipédia',
+  'bom-dia',
+  'melodia',
+  'radial'
+]
+*/
+console.log(text2.match(/([\wÀ-ú-]*)?dia([\wÀ-ú-]*)/gi)); //não vem com virgula
+/*
+[
+  'dia',       'diatônico',
+  'diafragma', 'média',
+  'wikipédia', 'bom-dia',
+  'melodia',   'radial'
+]
+*/
+```
+## Conclusão
+
+Encerramos aqui, ao menos por enquanto, o conteúdo sobre Expressões Regulares, o intuito da criação desse repositório é apenas dar uma visão geral, bem como o uso de exemplos para facilitar o seu dia-a-dia.
+
+Caso queira uma visão ainda mais ampla do conteúdo apresentado aqui, volto a dizer que o conteúdo apresentado no curso [Fundamentos de Expressões Regulares (Regex)](https://www.udemy.com/course/curso-regex/) irá com certeza melhorar o seu entendimento e ajudar você a melhorar ainda mais suas aplicações.
+
+Espero que o conteúdo aqui ajude a todos, e até a próxima!
